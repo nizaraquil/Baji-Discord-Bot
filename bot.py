@@ -4,7 +4,6 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from collections import defaultdict
-from keep_alive import keep_alive
 
 
 load_dotenv()
@@ -152,6 +151,5 @@ async def check_all_levels(ctx):
     await ctx.send('\n'.join(level_info))
 
 if __name__ == "__main__":
-    keep_alive()
     bot.run(TOKEN)
 

@@ -59,7 +59,6 @@ def get_wikipedia_summary(subject):
     else:
         return "Error: Unable to fetch summary."
 
-
 # Bot Initialization
 @bot.event
 async def on_ready():
@@ -89,6 +88,13 @@ async def on_message(message):
         return
 
     user_id = message.author.id
+    
+    # Add user to dictionaries if not already present
+    if user_id not in user_experience:
+        user_experience[user_id] = 0
+    if user_id not in user_aura:
+        user_aura[user_id] = 0
+
     user_experience[user_id] += 10  # Increment XP by 10 for each message
 
     # Check for level up

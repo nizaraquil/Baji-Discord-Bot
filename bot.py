@@ -33,6 +33,7 @@ def load_aura_data():
     except FileNotFoundError:
         pass
 
+
 # Save aura data to a file
 def save_aura_data():
     data = {
@@ -41,6 +42,7 @@ def save_aura_data():
     }
     with open('aura_data.json', 'w') as f:
         json.dump(data, f, indent=4)
+
 
 # Load levels data from a file
 def load_levels_data():
@@ -53,6 +55,7 @@ def load_levels_data():
     except FileNotFoundError:
         pass
 
+
 # Save levels data to a file
 def save_levels_data():
     data = {
@@ -61,6 +64,7 @@ def save_levels_data():
     }
     with open('levels.json', 'w') as f:
         json.dump(data, f, indent=4)
+
 
 # Leveling system: Update XP and check for level up
 @bot.event
@@ -94,9 +98,11 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
+
 # Function to calculate level based on XP
 def calculate_level(xp):
     return xp // 100  # Assuming 100 XP per level
+
 
 # Command to check your level
 @bot.command(name='LVL')
@@ -105,6 +111,7 @@ async def check_level(ctx):
     user_id = ctx.author.id
     level = user_levels[guild_id][user_id]
     await ctx.send(f'{ctx.author.display_name}, your current level is {level}.')
+
 
 # Command to check the level of all users in the current guild
 @bot.command(name='LVL-ALL')
@@ -120,15 +127,26 @@ async def check_all_levels(ctx):
 
     await ctx.send('\n'.join(level_info))
 
+
 # Tell a joke
 @bot.command(name='joke')
 async def joke(ctx):
     await ctx.send(get_joke())
 
+
 # Get a summarized article from Wikipedia
 @bot.command(name='info')
 async def info(ctx, *, subject):
     await ctx.send(get_wikipedia_summary(subject))
+
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+
+    if "rocket league" in (message.content).lower() or "rl" in (message.content).lower():
+        await message.channel.send("Dude! Rocket League is a dead game.")
+        await message.channel.send("Let's play Valorant instead.")
 
 if __name__ == "__main__":
     bot.run(TOKEN)
